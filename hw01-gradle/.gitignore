@@ -31,9 +31,11 @@ hs_err_pid*
 build
 out
 
-#Idea
+# Idea
 *.iml
 *.iws
 *.ipr
 *.idea
 
+# Mac
+*.DS_Store
