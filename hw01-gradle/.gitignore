@@ -31,7 +31,7 @@ hs_err_pid*
 build
 out
 
-# Idea
+#Idea
 *.iml
 *.iws
 *.ipr
@@ -39,3 +39,18 @@ out
 
 # Mac
 *.DS_Store
+
+# Ignore Gradle project-specific cache directory
+.gradle
+/buildSrc/.gradle/
+
+# Ignore Gradle build output directory
+build
+out
+
+#Idea
+*.iml
+*.iws
+*.ipr
+*.idea
+
