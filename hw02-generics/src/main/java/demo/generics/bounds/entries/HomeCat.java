@@ -3,7 +3,7 @@ package demo.generics.bounds.entries;
 public class HomeCat extends Cat {
     private final String name;
 
-    public HomeCat( String name ) {
+    public HomeCat(String name) {
         this.name = name;
     }
 

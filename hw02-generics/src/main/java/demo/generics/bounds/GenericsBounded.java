@@ -6,7 +6,7 @@ import demo.generics.bounds.entries.WildCat;
 
 public class GenericsBounded<T extends Cat> {
 
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
 
         //GenericsBounded<Animal> genericsBounded = new GenericsBounded<>(); //ошибка
         GenericsBounded<Cat> ok1 = new GenericsBounded<>();

@@ -1,9 +1,7 @@
 package homework;
 
 
-import static java.lang.Long.compare;
-
-public class Customer implements Comparable<Customer>{
+public class Customer {
     private final long id;
     private String name;
     private long scores;
@@ -57,11 +55,7 @@ public class Customer implements Comparable<Customer>{
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        return result;
-    }
 
-    @Override
-    public int compareTo(Customer o) {
-        return 1;
+        return result;
     }
 }

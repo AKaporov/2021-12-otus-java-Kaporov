@@ -8,7 +8,7 @@ import java.util.List;
 
 public class GenericsInheritance {
 
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
 
         Animal cat = new Cat();
 
