@@ -11,5 +11,4 @@ public class HelloOtus {
         Joiner joiner = Joiner.on(" - ").skipNulls();
         return joiner.join(first, second, rest);
     }
-
 }
