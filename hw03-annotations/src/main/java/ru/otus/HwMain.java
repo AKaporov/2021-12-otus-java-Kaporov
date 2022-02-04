@@ -13,7 +13,6 @@ public class HwMain {
         StartTest startTest = new StartTest(ClassTest.class);
         startTest.start();
 
-
         System.out.println("************************** start main *********");
 
         Class<ClassTest> clazz = ClassTest.class;

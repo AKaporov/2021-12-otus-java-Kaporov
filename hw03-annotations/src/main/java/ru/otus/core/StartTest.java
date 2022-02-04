@@ -28,7 +28,6 @@ public class StartTest {
 //        o.before();
 //        getNewInstance(constructor);
 
-
         Object[] args = getArgs();
         ClassTest instantiate = ReflectionHelper.instantiate(clazz, args);
 

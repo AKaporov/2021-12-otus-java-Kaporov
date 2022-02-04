@@ -2,7 +2,6 @@ package ru.otus.reflection;
 
 import java.util.Arrays;
 
-
 public class ReflectionHelper {
     private ReflectionHelper() {
     }
