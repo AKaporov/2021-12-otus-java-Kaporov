@@ -22,22 +22,44 @@
 ###Результаты запусков
 Размеры heap при запуске (до оптимизации): 
 1. 256  Mb:
-   1. spend msec:28875, sec:28
-   2. 
+   1. Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+   2. Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+   3. Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 2. 512  Mb:
-   1. spend msec:23326, sec:23
+   1. spend msec:24977, sec:24
+   2. spend msec:20862, sec:20
+   3. spend msec:22185, sec:22
+   ####Среднее время работы = spend msec:22674, sec:22
 3. 768  Mb:
-   1. spend msec:18457, sec:18
+   1. spend msec:19031, sec:19
+   2. spend msec:18191, sec:18
+   3. spend msec:18513, sec:18
+   ####Среднее время работы = spend msec:18578, sec:18.3
 4. 1024 Mb:
-   1. spend msec:17603, sec:17
+   1. spend msec:17876, sec:17
+   2. spend msec:18075, sec:18
+   3. spend msec:17911, sec:17
+   ####Среднее время работы = spend msec:17954, sec:17.3
 5. 1280 Mb:
-   1. spend msec:17167, sec:17
+   1. spend msec:16625, sec:16
+   2. spend msec:17117, sec:17
+   3. spend msec:17010, sec:17
+   ####Среднее время работы = spend msec:16917, sec:16.6
 6. 1536 Mb:
-   1. spend msec:16839, sec:16
+   1. spend msec:16825, sec:16
+   2. spend msec:16579, sec:16
+   3. spend msec:15835, sec:15
+   ####Среднее время работы = spend msec:16413, sec:15.6
 7. 1792 Mb:
-   1. spend msec:14752, sec:14
+   1. spend msec:14469, sec:14
+   2. spend msec:15225, sec:15
+   3. spend msec:16537, sec:16
+   ####Среднее время работы = spend msec:15410, sec:15
 8. 2048 Mb:
-   1. spend msec:16443, sec:16
+   1. spend msec:16032, sec:16
+   2. spend msec:15084, sec:15
+   3. spend msec:16590, sec:16
+   ####Среднее время работы = spend msec:15902, sec:15.6
 
 Размеры heap при запуске (после оптимизации):
 1. 256  Mb:
