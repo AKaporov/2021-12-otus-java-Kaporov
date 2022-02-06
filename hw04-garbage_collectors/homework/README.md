@@ -15,3 +15,68 @@
 - spend msec:18284, sec:18
 
 * [Классический доклад Владимира Иванова — G1 Garbage Collector](https://www.youtube.com/watch?v=iGRfyhE02lA)
+* [VisualVM - программа для мониторинга (начиная с java 9 не входит в jdk)](https://visualvm.github.io/download.html)
+* [О формате логов](http://openjdk.java.net/jeps/158)
+
+---
+###Результаты запусков
+Размеры heap при запуске (до оптимизации): 
+1. 256  Mb:
+   1. spend msec:28875, sec:28
+   2. 
+2. 512  Mb:
+   1. spend msec:23326, sec:23
+3. 768  Mb:
+   1. spend msec:18457, sec:18
+4. 1024 Mb:
+   1. spend msec:17603, sec:17
+5. 1280 Mb:
+   1. spend msec:17167, sec:17
+6. 1536 Mb:
+   1. spend msec:16839, sec:16
+7. 1792 Mb:
+   1. spend msec:14752, sec:14
+8. 2048 Mb:
+   1. spend msec:16443, sec:16
+
+Размеры heap при запуске (после оптимизации):
+1. 256  Mb:
+   1. spend msec:6505, sec:6
+   2. spend msec:6082, sec:6
+   3. spend msec:6921, sec:6
+   ####Среднее время работы = spend msec:6502, sec:6
+2. 512  Mb:
+   1. spend msec:4842, sec:4
+   2. spend msec:4824, sec:4
+   3. spend msec:4738, sec:4
+   ####Среднее время работы = spend msec:4801, sec:4
+3. 768  Mb:
+   1. spend msec:4556, sec:4
+   2. spend msec:4587, sec:4
+   3. spend msec:4630, sec:4
+   ####Среднее время работы = spend msec:4591, sec:4
+4. 1024 Mb:
+   1. spend msec:4533, sec:4
+   2. spend msec:4841, sec:4
+   3. spend msec:4232, sec:4
+   ####Среднее время работы = spend msec:4535, sec:4
+5. 1280 Mb:
+   1. spend msec:6493, sec:6
+   2. spend msec:5284, sec:5
+   3. spend msec:5090, sec:5
+   ####Среднее время работы = spend msec:5622, sec:5.3
+6. 1536 Mb:
+   1. spend msec:4734, sec:4
+   2. spend msec:4508, sec:4
+   3. spend msec:4799, sec:4
+   ####Среднее время работы = spend msec:4680, sec:4
+7. 1792 Mb:
+   1. spend msec:4614, sec:4
+   2. spend msec:4927, sec:4
+   3. spend msec:4708, sec:4
+   ####Среднее время работы = spend msec:4749, sec:4
+8. 2048 Mb:
+   1. spend msec:5252, sec:5
+   2. spend msec:4716, sec:4
+   3. spend msec:4816, sec:4
+   ####Среднее время работы = spend msec:4928, sec:4.3
