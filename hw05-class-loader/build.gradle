@@ -6,9 +6,9 @@ plugins {
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
-//dependencies {
-//    implementation 'org.ow2.asm:asm-commons'
-//}
+dependencies {
+    implementation 'com.google.guava:guava'
+}
 
 shadowJar {
     archiveBaseName.set('hw05-class-loader')
