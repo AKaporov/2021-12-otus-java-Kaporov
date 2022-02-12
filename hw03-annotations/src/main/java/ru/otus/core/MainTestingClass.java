@@ -7,10 +7,10 @@ import ru.otus.reflection.ReflectionHelper;
 
 import java.lang.reflect.Method;
 
-public class StartTestingClass {
+public class MainTestingClass {
     private final Class<?> clazz;
 
-    public StartTestingClass(Class<?> testClass) {
+    public MainTestingClass(Class<?> testClass) {
         this.clazz = testClass;
     }
 

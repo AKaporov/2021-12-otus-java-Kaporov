@@ -1,11 +1,11 @@
 package ru.otus;
 
-import ru.otus.core.StartTestingClass;
+import ru.otus.core.MainTestingClass;
 import ru.otus.tests.CarTest;
 
 public class HwMain {
     public static void main(String[] args) {
-        StartTestingClass startTestingClass = new StartTestingClass(CarTest.class);
-        startTestingClass.start();
+        MainTestingClass mainTestingClass = new MainTestingClass(CarTest.class);
+        mainTestingClass.start();
     }
 }
