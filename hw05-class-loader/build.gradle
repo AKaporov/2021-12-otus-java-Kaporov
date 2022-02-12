@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow'
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+//dependencies {
+//    implementation 'org.ow2.asm:asm-commons'
+//}
+
+shadowJar {
+    archiveBaseName.set('hw05-class-loader')
+    archiveVersion.set('0.1')
+    archiveClassifier.set('')
+    manifest {
+        attributes 'Main-Class': 'ru.hw.HWDemo'
+    }
+}
+
+// чтобы получить "тонкий" и "толстый-jar"
+tasks.build.dependsOn tasks.shadowJar
