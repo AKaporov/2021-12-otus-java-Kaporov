@@ -1,6 +1,6 @@
 package ru.hw;
 
-import ru.hw.service.TestLoggingProxy;
+import ru.hw.proxy.TestLoggingProxy;
 import ru.hw.service.TestLoggingService;
 
 public class HWDemo {

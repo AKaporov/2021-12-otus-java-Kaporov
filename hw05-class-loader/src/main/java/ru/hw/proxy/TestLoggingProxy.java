@@ -1,6 +1,8 @@
-package ru.hw.service;
+package ru.hw.proxy;
 
 import ru.hw.annotations.Log;
+import ru.hw.service.TestLoggingService;
+import ru.hw.service.TestLoggingServiceImpl;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
