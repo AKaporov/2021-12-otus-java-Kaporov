@@ -9,9 +9,18 @@ import java.lang.reflect.Method;
 
 public class MainTestingClass {
     private final Class<?> clazz;
+    private static final Object[] argsEmpty = new Class[0];
 
     public MainTestingClass(Class<?> testClass) {
         this.clazz = testClass;
+    }
+
+    public static <T> T myInstantiate(Class<T> type) {
+        return ReflectionHelper.instantiate(type, argsEmpty);
+    }
+
+    public static Object myCallMethod(Object object, String name) {
+        return ReflectionHelper.callMethod(object, name, argsEmpty);
     }
 
     public void start() {
@@ -20,7 +29,7 @@ public class MainTestingClass {
         int countErrorTest = 0;
         Method beforeMethod = null;
         Method afterMethod = null;
-        Object[] args = new Class[0];
+//        Object[] args = new Class[0];
         Method[] declaredMethods = clazz.getDeclaredMethods();
 
         for (Method m : declaredMethods) {
@@ -36,23 +45,29 @@ public class MainTestingClass {
 
             if (testAnnotationPresent) {
                 ++countAllTest;
-                Object instantiate = ReflectionHelper.instantiate(clazz, args);
+//                Object instantiate = ReflectionHelper.instantiate(clazz, args);
+                Object instantiate = myInstantiate(clazz);
+
 //                System.out.println("methodName = " + declaredMethods[i].getName() + " / instantiate.hashCode() = " + instantiate.hashCode());
 
                 if (beforeMethod != null)
-                    ReflectionHelper.callMethod(instantiate, beforeMethod.getName(), args);
+//                    ReflectionHelper.callMethod(instantiate, beforeMethod.getName(), args);
+                    myCallMethod(instantiate, beforeMethod.getName());
 
                 try {
-                    ReflectionHelper.callMethod(instantiate, m.getName(), args);
+//                    ReflectionHelper.callMethod(instantiate, m.getName(), args);
+                    myCallMethod(instantiate, m.getName());
 
 
                     if (afterMethod != null)
-                        ReflectionHelper.callMethod(instantiate, afterMethod.getName(), args);
+//                        ReflectionHelper.callMethod(instantiate, afterMethod.getName(), args);
+                        myCallMethod(instantiate, afterMethod.getName());
 
                     ++countSuccessfulTest;
                 } catch (RuntimeException e) {
                     if (afterMethod != null)
-                        ReflectionHelper.callMethod(instantiate, afterMethod.getName(), args);
+//                        ReflectionHelper.callMethod(instantiate, afterMethod.getName(), args);
+                        myCallMethod(instantiate, afterMethod.getName());
 
                     ++countErrorTest;
                 }
