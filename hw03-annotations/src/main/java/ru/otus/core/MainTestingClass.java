@@ -14,6 +14,11 @@ public class MainTestingClass {
         this.clazz = testClass;
     }
 
+
+    public static Object myCallMethod(Object object, String name) {
+        return ReflectionHelper.callMethod(object, name, new Class[0]);
+    }
+
     public void start() {
         int countAllTest = 0;
         int countSuccessfulTest = 0;
@@ -40,19 +45,23 @@ public class MainTestingClass {
 //                System.out.println("methodName = " + declaredMethods[i].getName() + " / instantiate.hashCode() = " + instantiate.hashCode());
 
                 if (beforeMethod != null)
-                    ReflectionHelper.callMethod(instantiate, beforeMethod.getName(), args);
+//                    ReflectionHelper.callMethod(instantiate, beforeMethod.getName(), args);
+                    myCallMethod(instantiate, beforeMethod.getName());
 
                 try {
-                    ReflectionHelper.callMethod(instantiate, m.getName(), args);
+//                    ReflectionHelper.callMethod(instantiate, m.getName(), args);
+                    myCallMethod(instantiate, m.getName());
 
 
                     if (afterMethod != null)
-                        ReflectionHelper.callMethod(instantiate, afterMethod.getName(), args);
+//                        ReflectionHelper.callMethod(instantiate, afterMethod.getName(), args);
+                        myCallMethod(instantiate, afterMethod.getName());
 
                     ++countSuccessfulTest;
                 } catch (RuntimeException e) {
                     if (afterMethod != null)
-                        ReflectionHelper.callMethod(instantiate, afterMethod.getName(), args);
+//                        ReflectionHelper.callMethod(instantiate, afterMethod.getName(), args);
+                        myCallMethod(instantiate, afterMethod.getName());
 
                     ++countErrorTest;
                 }
