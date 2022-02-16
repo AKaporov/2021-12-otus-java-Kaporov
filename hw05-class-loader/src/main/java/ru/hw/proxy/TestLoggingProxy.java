@@ -7,7 +7,9 @@ import ru.hw.service.TestLoggingServiceImpl;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class TestLoggingProxy {
     private TestLoggingProxy() {
@@ -31,40 +33,36 @@ public class TestLoggingProxy {
     static class TestLoggingInvocationHandler implements InvocationHandler {
 
         private final TestLoggingService myClass;
+        private final Set<String> allMethodsLogClass;
 
         public TestLoggingInvocationHandler(TestLoggingService myClass) {
             this.myClass = myClass;
+
+            allMethodsLogClass = getAllMethodsWithInputParamsAnnotatedLogClass();
+        }
+
+        private Set<String> getAllMethodsWithInputParamsAnnotatedLogClass() {
+            Set<String> result = new LinkedHashSet<>();
+
+            for (var m : myClass.getClass().getDeclaredMethods()) {
+                if (m.isAnnotationPresent(Log.class)) {
+                    result.add(getCode(m));
+                }
+            }
+
+            return result;
+        }
+
+        private String getCode(Method m) {
+            return m.getName() + "_" + Arrays.toString(m.getParameterTypes());
         }
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            Class<? extends TestLoggingService> clazz = myClass.getClass();
-
-            Class[] cArgs = null;
-            if (args != null) {
-                cArgs = new Class[args.length];
-                for (int i = 0; i < args.length; i++) {
-                    if (args[i] instanceof Integer) {
-                        cArgs[i] = Integer.TYPE;
-                    } else {
-                        cArgs[i] = args[i].getClass();
-                    }
-                }
-            }
-
-            Method declaredMethod = clazz.getDeclaredMethod(method.getName(), cArgs);
-
-            if (declaredMethod.isAnnotationPresent(Log.class)) {
-                AtomicReference<String> params = new AtomicReference<>("");
-
-                if (args != null) {
-                    for (Object arg : args) {
-                        params.set(params + ", " + arg);
-                    }
-                }
-
-                System.out.println("Execute method: " + method.getName() + ", param: " + params.get().replaceFirst(",", ""));
-            }
+            allMethodsLogClass.stream()
+                    .filter(m -> m.equals(getCode(method)))
+                    .findFirst()
+                    .ifPresent(s -> System.out.println("Execute method: " + method.getName() + ", param: " + Arrays.toString(args)));
 
             return method.invoke(myClass, args);
         }
