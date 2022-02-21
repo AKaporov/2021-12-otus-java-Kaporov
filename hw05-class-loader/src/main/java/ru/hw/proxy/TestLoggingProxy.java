@@ -8,7 +8,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Set;
 
 public class TestLoggingProxy {
@@ -18,8 +18,7 @@ public class TestLoggingProxy {
 
     public static TestLoggingService createTestLoggingInstance() {
         InvocationHandler handler = new TestLoggingInvocationHandler(new TestLoggingServiceImpl());
-        return (TestLoggingService) Proxy.newProxyInstance(TestLoggingProxy.class.getClassLoader(),
-                new Class<?>[]{TestLoggingService.class}, handler);
+        return (TestLoggingService) Proxy.newProxyInstance(TestLoggingProxy.class.getClassLoader(), new Class<?>[]{TestLoggingService.class}, handler);
 
         // Guava
 //        return Reflection.newProxy(TestLoggingService.class, handler);
@@ -42,7 +41,7 @@ public class TestLoggingProxy {
         }
 
         private Set<String> getAllMethodsWithInputParamsAnnotatedLogClass() {
-            Set<String> result = new LinkedHashSet<>();
+            Set<String> result = new HashSet<>();
 
             for (var m : myClass.getClass().getDeclaredMethods()) {
                 if (m.isAnnotationPresent(Log.class)) {
@@ -59,10 +58,9 @@ public class TestLoggingProxy {
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            allMethodsLogClass.stream()
-                    .filter(m -> m.equals(getCode(method)))
-                    .findFirst()
-                    .ifPresent(s -> System.out.println("Execute method: " + method.getName() + ", param: " + Arrays.toString(args)));
+            if (allMethodsLogClass.contains(getCode(method))) {
+                System.out.println("Execute method: " + method.getName() + ", param: " + Arrays.toString(args));
+            }
 
             return method.invoke(myClass, args);
         }
