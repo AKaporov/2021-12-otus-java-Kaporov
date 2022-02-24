@@ -1,7 +1,7 @@
 package ru.hw.service;
 
 public interface Banknote {
-    void add(int count);
+    void increase(int count);
 
-    int get(int count);
+    int decrease(int count);
 }

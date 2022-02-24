@@ -14,7 +14,7 @@ class BanknoteImplTest {
     void shouldReturnIllegalArgumentExceptionWhenAddNotPositiveCount() {
         Banknote banknote = new BanknoteImpl();
 
-        assertThatThrownBy(() -> banknote.add(-1)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> banknote.increase(-1)).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -22,9 +22,9 @@ class BanknoteImplTest {
     void shouldAddTwoBanknote() {
         Banknote actualBanknote = new BanknoteImpl();
 
-        actualBanknote.add(2);
+        actualBanknote.increase(2);
 
-        assertThat(actualBanknote.get(2)).isEqualTo(2);
+        assertThat(actualBanknote.decrease(2)).isEqualTo(2);
     }
 
     @Test
@@ -32,9 +32,9 @@ class BanknoteImplTest {
     void shouldCreateFiveBanknoteAndAddTwoBanknote() {
         Banknote actualBanknote = new BanknoteImpl(5);
 
-        actualBanknote.add(2);
+        actualBanknote.increase(2);
 
-        assertThat(actualBanknote.get(7)).isEqualTo(7);
+        assertThat(actualBanknote.decrease(7)).isEqualTo(7);
     }
 
     @Test
@@ -42,7 +42,7 @@ class BanknoteImplTest {
     void shouldCreateFiveBanknote() {
         Banknote actualBanknote = new BanknoteImpl(5);
 
-        assertThat(actualBanknote.get(3)).isEqualTo(3);
+        assertThat(actualBanknote.decrease(3)).isEqualTo(3);
     }
 
     @Test
@@ -50,6 +50,6 @@ class BanknoteImplTest {
     void shouldReturnRuntimeExceptionWhenTryGetNotExistsCountBanknote() {
         Banknote actualBanknote = new BanknoteImpl(2);
 
-        assertThatThrownBy(() -> actualBanknote.get(5)).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> actualBanknote.decrease(5)).isInstanceOf(RuntimeException.class);
     }
 }
