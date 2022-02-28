@@ -1,7 +1,9 @@
 package ru.hw.service;
 
 public interface Cell {
-    boolean addBanknote(int countBanknote);
+    boolean addBanknote(int count);
 
-    int getBanknote(int countBanknote);
+    int getBanknote(int count);
+
+    int getBalance();
 }

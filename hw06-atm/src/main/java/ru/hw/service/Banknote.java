@@ -1,7 +1,9 @@
 package ru.hw.service;
 
-public interface Banknote {
-    void increase(int count);
+public class Banknote {
+    private final int nominal;
 
-    int decrease(int count);
+    public Banknote(int nominal) {
+        this.nominal = nominal;
+    }
 }
