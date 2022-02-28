@@ -1,9 +1,9 @@
 package ru.hw.service;
 
 public interface ATM {
-    Cell createCell(Cell cellNew);
+    void addAmount(int amount);
 
-    boolean addBanknote(Cell cell, int banknotes);
+    int getAmountMinBanknote(int amount);
 
-    int getBanknote(Cell cell, int banknotes);
+    int getBalance();
 }
