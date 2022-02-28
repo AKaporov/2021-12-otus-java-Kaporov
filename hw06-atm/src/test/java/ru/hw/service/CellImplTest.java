@@ -4,27 +4,29 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 
 @DisplayName("Класс Ячейка")
 class CellImplTest {
+    public static final int EXPECTED_BALANCE = 10;
+
     @Test
     @DisplayName("должен возвращать все добавленные банктонты в ячейки")
     void shouldReturnAllBanknoteFromCells() {
-        Banknote fiveThousand = new BanknoteImpl();
-        Banknote oneThousand = new BanknoteImpl();
+        Banknote fiveThousand = new Banknote(5000);
+        Banknote oneThousand = new Banknote(1000);
 
-        Cell five = new CellImpl(fiveThousand);
-        Cell one = new CellImpl(oneThousand);
+        Cell firstCell = new CellImpl(fiveThousand);
+        firstCell.addBanknote(5);
+        firstCell.addBanknote(EXPECTED_BALANCE);
 
-        five.addBanknote(5);
-        five.addBanknote(3);
+        Cell secondCell = new CellImpl(oneThousand);
+        secondCell.addBanknote(1);
 
-        one.addBanknote(1);
-
-        int actualFive = five.getBanknote(8);
-        int actualOne = one.getBanknote(1);
+        int actualFive = firstCell.getBanknote(8);
+        int actualOne = secondCell.getBanknote(1);
 
         int expectFive = 8;
         int expectOne = 1;
@@ -33,6 +35,37 @@ class CellImplTest {
             assertThat(actualFive).isEqualTo(expectFive);
             assertThat(actualOne).isEqualTo(expectOne);
         });
+    }
 
+    @Test
+    @DisplayName("должен вернуть ошибку, когда пытались увеличть количество банктнот на отрицательное количество")
+    void shouldReturnIllegalArgumentExceptionWhenAddNotPositiveCount() {
+        Cell cell = new CellImpl(new Banknote(100));
+
+        assertThatThrownBy(() -> cell.addBanknote(-1)).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("должен вернуть нуль ианкнот, если запросили больше банкнот, чем есть")
+    void shouldReturnRuntimeExceptionWhenTryGetNotExistsCountBanknote() {
+        Cell cell = new CellImpl(new Banknote(100));
+
+        cell.addBanknote(EXPECTED_BALANCE);
+
+        int actualCount = cell.getBanknote(15);
+
+        assertThat(actualCount).isZero();
+    }
+
+    @Test
+    @DisplayName("должен вернуть сумму остатка")
+    void shouldReturnBalance() {
+        Cell cell = new CellImpl(new Banknote(100));
+
+        cell.addBanknote(EXPECTED_BALANCE);
+
+        int actualBalance = cell.getBalance();
+
+        assertThat(actualBalance).isEqualTo(EXPECTED_BALANCE);
     }
 }
