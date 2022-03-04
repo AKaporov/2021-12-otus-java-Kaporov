@@ -16,4 +16,14 @@ public class LoggerProcessor implements Processor {
         System.out.println("log processing message:" + message);
         return processor.process(message);
     }
+
+    @Override
+    public Message swapField11AndField13(Message message) {
+        return null;
+    }
+
+    @Override
+    public void createThrowExceptionInAnEventSecond() {
+
+    }
 }
