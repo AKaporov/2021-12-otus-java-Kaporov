@@ -13,5 +13,5 @@ public interface Processor {
     //         Секунда должна определяьться во время выполнения.
     //         Тест - важная часть задания
     // Обязательно посмотрите пример к паттерну Мементо!
-    void createThrowException();
+    void createThrowExceptionInAnEventSecond();
 }
