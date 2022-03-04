@@ -9,4 +9,14 @@ public class ProcessorConcatFields implements Processor {
         var newFieldValue = String.join(" ", "concat:", message.getField1(), message.getField2(), message.getField3());
         return message.toBuilder().field4(newFieldValue).build();
     }
+
+    @Override
+    public Message swapField11AndField13(Message message) {
+        return null;
+    }
+
+    @Override
+    public void createThrowExceptionInAnEventSecond() {
+
+    }
 }
