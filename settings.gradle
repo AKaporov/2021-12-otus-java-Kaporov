@@ -5,3 +5,6 @@ include 'hw03-annotations'
 include 'hw04-garbage_collectors:demo'
 include 'hw04-garbage_collectors:homework'
 include 'hw05-class-loader'
+
+include 'hw07-structuralPatterns:demo'
+include 'hw07-structuralPatterns:homework'
