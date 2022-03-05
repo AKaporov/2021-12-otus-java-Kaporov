@@ -1,12 +1,13 @@
 package ru.hw.service;
 
 public class CellImpl implements Cell {
-    private final Banknote banknote;
+    // TODO: 05.03.2022 Использоваие BanknoteEnum
+//    private final BanknoteRecords banknoteRecords;
     private int countBanknote = 0;
 
-    public CellImpl(Banknote banknote) {
-        this.banknote = banknote;
-    }
+//    public CellImpl(BanknoteRecords banknoteRecords) {
+//        this.banknoteRecords = banknoteRecords;
+//    }
 
     @Override
     public boolean addBanknote(int count) {
