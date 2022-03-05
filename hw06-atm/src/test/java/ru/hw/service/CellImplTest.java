@@ -15,14 +15,17 @@ class CellImplTest {
     @Test
     @DisplayName("должен возвращать все добавленные банктонты в ячейки")
     void shouldReturnAllBanknoteFromCells() {
-        Banknote fiveThousand = new Banknote(5000);
-        Banknote oneThousand = new Banknote(1000);
+        // TODO: 05.03.2022 Использоваие BanknoteEnum
+//        BanknoteRecords fiveThousand = new BanknoteRecords(5000);
+//        BanknoteRecords oneThousand = new BanknoteRecords(1000);
 
-        Cell firstCell = new CellImpl(fiveThousand);
+//        Cell firstCell = new CellImpl(fiveThousand);
+        Cell firstCell = new CellImpl();
         firstCell.addBanknote(5);
         firstCell.addBanknote(EXPECTED_BALANCE);
 
-        Cell secondCell = new CellImpl(oneThousand);
+//        Cell secondCell = new CellImpl(oneThousand);
+        Cell secondCell = new CellImpl();
         secondCell.addBanknote(1);
 
         int actualFive = firstCell.getBanknote(8);
@@ -40,7 +43,9 @@ class CellImplTest {
     @Test
     @DisplayName("должен вернуть ошибку, когда пытались увеличть количество банктнот на отрицательное количество")
     void shouldReturnIllegalArgumentExceptionWhenAddNotPositiveCount() {
-        Cell cell = new CellImpl(new Banknote(100));
+        // TODO: 05.03.2022 Использоваие BanknoteEnum
+//        Cell cell = new CellImpl(new BanknoteRecords(100));
+        Cell cell = new CellImpl();
 
         assertThatThrownBy(() -> cell.addBanknote(-1)).isInstanceOf(IllegalArgumentException.class);
     }
@@ -48,7 +53,9 @@ class CellImplTest {
     @Test
     @DisplayName("должен вернуть нуль ианкнот, если запросили больше банкнот, чем есть")
     void shouldReturnRuntimeExceptionWhenTryGetNotExistsCountBanknote() {
-        Cell cell = new CellImpl(new Banknote(100));
+        // TODO: 05.03.2022 Использоваие BanknoteEnum
+//        Cell cell = new CellImpl(new BanknoteRecords(100));
+        Cell cell = new CellImpl();
 
         cell.addBanknote(EXPECTED_BALANCE);
 
@@ -60,7 +67,9 @@ class CellImplTest {
     @Test
     @DisplayName("должен вернуть сумму остатка")
     void shouldReturnBalance() {
-        Cell cell = new CellImpl(new Banknote(100));
+        // TODO: 05.03.2022 Использоваие BanknoteEnum
+//        Cell cell = new CellImpl(new BanknoteRecords(100));
+        Cell cell = new CellImpl();
 
         cell.addBanknote(EXPECTED_BALANCE);
 
