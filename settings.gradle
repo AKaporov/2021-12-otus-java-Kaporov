@@ -1,2 +1,3 @@
 rootProject.name = 'OtusJavaProfessional'
-include 'hw08-json'
+include 'hw08-json:demo'
+include 'hw08-json:homework'
