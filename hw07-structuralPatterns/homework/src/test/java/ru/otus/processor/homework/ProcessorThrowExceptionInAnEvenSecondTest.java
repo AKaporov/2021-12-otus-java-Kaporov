@@ -29,6 +29,7 @@ class ProcessorThrowExceptionInAnEvenSecondTest {
     public static final String FIELD_11 = "field11";
     public static final String FIELD_12 = "field12";
 
+
     @Test
     @DisplayName("должен генерировать выбрасывать исключение в четную секунду")
     void shouldThrowExceptionInEvenSecond() {
