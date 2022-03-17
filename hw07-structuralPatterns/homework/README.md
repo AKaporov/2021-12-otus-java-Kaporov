@@ -6,5 +6,5 @@
 ## Описание/Пошаговая инструкция выполнения домашнего задания:
 реализовать todo из модуля homework
 
-* [GitHub - petrelevich/otus_java_2021_12](https://github.com/petrelevich/otus_java_2021_12)
+* [petrelevich/otus_java_2021_12](https://github.com/petrelevich/otus_java_2021_12) - GitHub
 * [Паттерны проектирования](https://refactoring.guru/ru/design-patterns)
