@@ -16,7 +16,7 @@ public class MainTestingClass {
 
 
     public static Object myCallMethod(Object object, String name) {
-        return ReflectionHelper.callMethod(object, name, new Class[0]);
+        return ReflectionHelper.callMethod(object, name, (Object[]) new Class[0]);
     }
 
     public void start() {
