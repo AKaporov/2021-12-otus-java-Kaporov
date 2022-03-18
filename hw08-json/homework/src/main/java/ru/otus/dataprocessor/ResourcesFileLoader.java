@@ -1,6 +1,5 @@
 package ru.otus.dataprocessor;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.otus.model.Measurement;
 
 import javax.json.Json;
@@ -11,7 +10,6 @@ import java.util.List;
 
 public class ResourcesFileLoader implements Loader {
     private final String fileName;
-    private final ObjectMapper mapper = new ObjectMapper();
 
     public ResourcesFileLoader(String fileName) {
         this.fileName = fileName;
