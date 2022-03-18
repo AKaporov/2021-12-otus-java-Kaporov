@@ -18,13 +18,21 @@ public class FileSerializer implements Serializer {
     public void serialize(Map<String, Double> data) {
         //формирует результирующий json и сохраняет его в файл
 
-        var gson = new Gson();
-        String json = gson.toJson(data);
+        String json = createJsonFromMap(data);
 
+        saveJsonToFile(json);
+    }
+
+    private void saveJsonToFile(String json) {
         try {
             Files.writeString(Paths.get(fileName), json);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileProcessException(e);
         }
+    }
+
+    private String createJsonFromMap(Map<String, Double> data) {
+        var gson = new Gson();
+        return gson.toJson(data);
     }
 }
