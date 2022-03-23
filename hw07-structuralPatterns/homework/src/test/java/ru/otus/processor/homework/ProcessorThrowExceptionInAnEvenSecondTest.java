@@ -9,8 +9,8 @@ import ru.otus.processor.Processor;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayName("Процессор искючений")
 class ProcessorThrowExceptionInAnEvenSecondTest {
@@ -37,6 +37,9 @@ class ProcessorThrowExceptionInAnEvenSecondTest {
         Processor processor = new ProcessorThrowExceptionInAnEvenSecond();
 
         assertThrows(RuntimeException.class, () -> processor.process(message));
+
+
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> processor.process(message));
     }
 
     private Message createMessage() {
