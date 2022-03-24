@@ -7,7 +7,7 @@ import ru.otus.processor.Processor;
  * Сделать процессор, который поменяет местами значения field11 и field12
  */
 
-public class ProcessorSwapF11AndF12 implements Processor{
+public class ProcessorSwapF11AndF12 implements Processor {
     @Override
     public Message process(Message message) {
         var f11 = message.getField11();

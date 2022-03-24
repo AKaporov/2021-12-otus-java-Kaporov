@@ -6,11 +6,14 @@ import ru.otus.model.Message;
 import ru.otus.model.ObjectForMessage;
 import ru.otus.processor.Processor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @DisplayName("Процессор искючений")
 class ProcessorThrowExceptionInAnEvenSecondTest {
@@ -30,16 +33,25 @@ class ProcessorThrowExceptionInAnEvenSecondTest {
     public static final String FIELD_12 = "field12";
 
     @Test
-    @DisplayName("должен генерировать выбрасывать исключение в четную секунду")
+    @DisplayName("должен генерировать исключение в четную секунду")
     void shouldThrowExceptionInEvenSecond() {
         Message message = createMessage();
 
-        Processor processor = new ProcessorThrowExceptionInAnEvenSecond();
-
-        assertThrows(RuntimeException.class, () -> processor.process(message));
-
+        Processor processor = new ProcessorThrowExceptionInAnEvenSecond(() -> LocalDateTime.of(
+                LocalDate.of(2021, 1, 1), LocalTime.of(12, 12, 12, 0)));
 
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> processor.process(message));
+    }
+
+    @Test
+    @DisplayName("не должен генерировать исключение в нечетную секунду")
+    void shouldNotThrowExceptionInOddSecond() {
+        Message message = createMessage();
+
+        Processor processor = new ProcessorThrowExceptionInAnEvenSecond(() -> LocalDateTime.of(
+                LocalDate.of(2021, 1, 1), LocalTime.of(11, 11, 11, 0)));
+
+        assertDoesNotThrow(() -> processor.process(message));
     }
 
     private Message createMessage() {

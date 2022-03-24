@@ -5,16 +5,11 @@ import ru.otus.listener.ListenerPrinterConsole;
 import ru.otus.model.Message;
 import ru.otus.model.ObjectForMessage;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class HistoryListener implements Listener, HistoryReader {
 
-        private final Map<Long, Deque<Message>> historyMessage = new HashMap<>();
-//    private final Deque<Memento> historyMessage = new ArrayDeque<>();
-
-//    private DateTimeProvider dateTimeProvider;
-
+    private final Map<Long, Deque<Message>> historyMessage = new HashMap<>();
 
     private final List<Message> list = new ArrayList<>();
 
@@ -28,18 +23,16 @@ public class HistoryListener implements Listener, HistoryReader {
     }
 
     private void addMessageToHistory(Message msg) {
-        Message copy = getCopyMessage(msg);
-        System.out.println("copy = " + copy);
-
         Deque<Message> newMessaged = new LinkedList<>();
         Deque<Message> oldMessages = historyMessage.get(msg.getId());
         if (oldMessages != null) {
             newMessaged.addAll(oldMessages);
         }
+
+        Message copy = getCopyMessage(msg);
         newMessaged.push(copy);
 
         historyMessage.put(msg.getId(), newMessaged);
-//        historyMessage.push(new Memento(msg, LocalDateTime.now()));
     }
 
     private Message getCopyMessage(Message msg) {
@@ -63,25 +56,21 @@ public class HistoryListener implements Listener, HistoryReader {
     }
 
     private ObjectForMessage getDeepCopyObjectForMessage(ObjectForMessage f13) {
-        ObjectForMessage result = new ObjectForMessage();
         List<String> objects = new ArrayList<>(f13.getData().size());
 
         for (String s : f13.getData()) {
             objects.add(s);
         }
+
+        ObjectForMessage result = new ObjectForMessage();
         result.setData(objects);
+
         return result;
     }
 
     @Override
     public Optional<Message> findMessageById(long id) {
-//        throw new UnsupportedOperationException();
-        System.out.println("id = " + id);
-
         Queue<Message> messages = historyMessage.get(id);
         return Optional.ofNullable(messages.poll());
-
-//        Memento poll = historyMessage.pop();
-//        return Optional.ofNullable(poll.msg());
     }
 }

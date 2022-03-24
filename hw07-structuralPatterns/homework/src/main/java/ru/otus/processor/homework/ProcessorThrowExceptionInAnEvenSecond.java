@@ -10,6 +10,13 @@ import ru.otus.processor.Processor;
  * Обязательно посмотрите пример к паттерну Мементо!
  */
 public class ProcessorThrowExceptionInAnEvenSecond implements Processor {
+
+    private final DateTimeProvider dateTimeProvider;
+
+    public ProcessorThrowExceptionInAnEvenSecond(DateTimeProvider dateTimeProvider) {
+        this.dateTimeProvider = dateTimeProvider;
+    }
+
     @Override
     public Message process(Message message) {
         if (isEvenSecond()) {
@@ -20,7 +27,6 @@ public class ProcessorThrowExceptionInAnEvenSecond implements Processor {
     }
 
     private boolean isEvenSecond() {
-        long sec = System.currentTimeMillis() / 1000L;
-        return sec % 2 == 0;
+        return this.dateTimeProvider.getDate().getSecond() % 2 == 0;
     }
 }
