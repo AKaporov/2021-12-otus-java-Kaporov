@@ -18,4 +18,3 @@
 * [HikariCP — самый быстрый пул соединений на java](https://habr.com/ru/post/269023/)  - см. комментарии Паньгина 
 * [Spring JDBC Template](https://spring.io/guides/gs/relational-data-access/)
 * [The Law of Leaky Abstractions](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/) - Закон протекания абстракций
-* 
