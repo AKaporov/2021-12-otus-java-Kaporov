@@ -10,13 +10,13 @@ import ru.otus.crm.model.Client;
 import ru.otus.crm.model.Manager;
 import ru.otus.crm.service.DbServiceClientImpl;
 import ru.otus.crm.service.DbServiceManagerImpl;
-import ru.otus.jdbc.mapper.EntityClassMetaData;
-import ru.otus.jdbc.mapper.EntitySQLMetaData;
-import ru.otus.jdbc.mapper.DataTemplateJdbc;
+import ru.otus.jdbc.mapper.*;
+import ru.otus.jdbc.mapper.jdbc.annotation.Id;
 
 import javax.sql.DataSource;
 
 public class HomeWork {
+    @Id
     private static final String URL = "jdbc:postgresql://localhost:5430/demoDB";
     private static final String USER = "usr";
     private static final String PASSWORD = "pwd";
@@ -31,7 +31,9 @@ public class HomeWork {
         var dbExecutor = new DbExecutorImpl();
 
 // Работа с клиентом
-        EntityClassMetaData entityClassMetaDataClient; // = new EntityClassMetaDataImpl();
+//        EntityClassMetaData entityClassMetaDataClient; // = new EntityClassMetaDataImpl();
+        EntityClassMetaData entityClassMetaDataClient = new EntityClassMetaDataImpl(Client.class);
+//        EntityClassMetaData entityClassMetaDataClient = new EntityClassMetaDataClientImpl(Client.class);
         EntitySQLMetaData entitySQLMetaDataClient = null; //= new EntitySQLMetaDataImpl();
         var dataTemplateClient = new DataTemplateJdbc<Client>(dbExecutor, entitySQLMetaDataClient); //реализация DataTemplate, универсальная
 
