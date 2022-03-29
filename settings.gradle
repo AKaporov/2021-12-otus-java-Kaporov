@@ -1,3 +1,2 @@
 rootProject.name = 'OtusJavaProfessional'
-include 'hw07-structuralPatterns:demo'
 include 'hw07-structuralPatterns:homework'
