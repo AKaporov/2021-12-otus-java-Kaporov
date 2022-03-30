@@ -1,6 +1,6 @@
 package ru.otus.jdbc.mapper;
 
-import ru.otus.jdbc.mapper.jdbc.reflection.IdReflection;
+import ru.otus.jdbc.mapper.jdbc.reflection.IdAnnotationReflection;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -16,29 +16,38 @@ public class EntityClassMetaDataImpl<T> implements EntityClassMetaData<T> {
 
     @Override
     public String getName() {
-        return clazz.getCanonicalName();
+        return clazz.getSimpleName();
     }
 
     @Override
     public Constructor<T> getConstructor() {
-//        clazz.getConstructor(String.class)
-        return null;
+        try {
+            return clazz.getDeclaredConstructor();
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Field getIdField() {
-        IdReflection idReflection = new IdReflection(clazz);
+        var idReflection = new IdAnnotationReflection(clazz);
 
-        return idReflection.getIdFiled();
+        return idReflection.getIdAnnotationFiled();
     }
 
     @Override
     public List<Field> getAllFields() {
-        return Arrays.asList(clazz.getFields());
+        return Arrays.asList(clazz.getDeclaredFields());
     }
 
     @Override
     public List<Field> getFieldsWithoutId() {
-        return null;
+//        List<Field> allFields = getAllFields();
+//        Field idField = getIdField();
+//        allFields.remove(idField);
+//        return allFields;
+
+        var idReflection = new IdAnnotationReflection(clazz);
+        return idReflection.getFieldsWithoutId();
     }
 }

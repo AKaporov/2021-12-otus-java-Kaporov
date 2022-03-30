@@ -10,13 +10,16 @@ import ru.otus.crm.model.Client;
 import ru.otus.crm.model.Manager;
 import ru.otus.crm.service.DbServiceClientImpl;
 import ru.otus.crm.service.DbServiceManagerImpl;
-import ru.otus.jdbc.mapper.*;
-import ru.otus.jdbc.mapper.jdbc.annotation.Id;
+import ru.otus.jdbc.mapper.DataTemplateJdbc;
+import ru.otus.jdbc.mapper.EntityClassMetaData;
+import ru.otus.jdbc.mapper.EntityClassMetaDataImpl;
+import ru.otus.jdbc.mapper.EntitySQLMetaData;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Field;
+import java.util.Arrays;
 
 public class HomeWork {
-    @Id
     private static final String URL = "jdbc:postgresql://localhost:5430/demoDB";
     private static final String USER = "usr";
     private static final String PASSWORD = "pwd";
@@ -24,6 +27,16 @@ public class HomeWork {
     private static final Logger log = LoggerFactory.getLogger(HomeWork.class);
 
     public static void main(String[] args) {
+//        EntityClassMetaData entityClassMetaDataC = new EntityClassMetaDataImpl(Client.class);
+//        System.out.println("entityClassMetaDataC.getName() = " + entityClassMetaDataC.getName());
+//        System.out.println("entityClassMetaDataC.getConstructor() = " + entityClassMetaDataC.getConstructor());
+//        System.out.println("entityClassMetaDataC.getIdField() = " + entityClassMetaDataC.getIdField());
+//        System.out.println("--- entityClassMetaDataC.getAllFields():");
+//        entityClassMetaDataC.getAllFields().forEach(System.out::println);
+//        System.out.println("--- entityClassMetaDataC.getFieldsWithoutId():");
+//        entityClassMetaDataC.getFieldsWithoutId().forEach(System.out::println);
+
+
 // Общая часть
         var dataSource = new DriverManagerDataSource(URL, USER, PASSWORD);
         flywayMigrations(dataSource);
@@ -32,8 +45,10 @@ public class HomeWork {
 
 // Работа с клиентом
 //        EntityClassMetaData entityClassMetaDataClient; // = new EntityClassMetaDataImpl();
-        EntityClassMetaData entityClassMetaDataClient = new EntityClassMetaDataImpl(Client.class);
 //        EntityClassMetaData entityClassMetaDataClient = new EntityClassMetaDataClientImpl(Client.class);
+//        EntitySQLMetaData entitySQLMetaDataClient = null; //= new EntitySQLMetaDataImpl();
+
+        EntityClassMetaData entityClassMetaDataClient = new EntityClassMetaDataImpl(Client.class);
         EntitySQLMetaData entitySQLMetaDataClient = null; //= new EntitySQLMetaDataImpl();
         var dataTemplateClient = new DataTemplateJdbc<Client>(dbExecutor, entitySQLMetaDataClient); //реализация DataTemplate, универсальная
 
@@ -48,7 +63,8 @@ public class HomeWork {
 
 // Сделайте тоже самое с классом Manager (для него надо сделать свою таблицу)
 
-        EntityClassMetaData entityClassMetaDataManager; // = new EntityClassMetaDataImpl();
+//        EntityClassMetaData entityClassMetaDataManager // = new EntityClassMetaDataImpl();
+        EntityClassMetaData entityClassMetaDataManager = new EntityClassMetaDataImpl(Manager.class);
         EntitySQLMetaData entitySQLMetaDataManager = null; //= new EntitySQLMetaDataImpl();
         var dataTemplateManager = new DataTemplateJdbc<Manager>(dbExecutor, entitySQLMetaDataManager);
 
