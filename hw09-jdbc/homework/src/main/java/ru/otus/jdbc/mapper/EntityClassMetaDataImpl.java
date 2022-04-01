@@ -37,16 +37,15 @@ public class EntityClassMetaDataImpl<T> implements EntityClassMetaData<T> {
 
     @Override
     public List<Field> getAllFields() {
+        Field[] declaredFields = clazz.getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            System.out.println("declaredField.getName() = " + declaredField.getName());
+        }
         return Arrays.asList(clazz.getDeclaredFields());
     }
 
     @Override
     public List<Field> getFieldsWithoutId() {
-//        List<Field> allFields = getAllFields();
-//        Field idField = getIdField();
-//        allFields.remove(idField);
-//        return allFields;
-
         var idReflection = new IdAnnotationReflection(clazz);
         return idReflection.getFieldsWithoutId();
     }

@@ -14,10 +14,10 @@ import ru.otus.jdbc.mapper.DataTemplateJdbc;
 import ru.otus.jdbc.mapper.EntityClassMetaData;
 import ru.otus.jdbc.mapper.EntityClassMetaDataImpl;
 import ru.otus.jdbc.mapper.EntitySQLMetaData;
+import ru.otus.jdbc.mapper.EntitySQLMetaDataImpl;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Field;
-import java.util.Arrays;
+import java.util.List;
 
 public class HomeWork {
     private static final String URL = "jdbc:postgresql://localhost:5430/demoDB";
@@ -45,11 +45,10 @@ public class HomeWork {
 
 // Работа с клиентом
 //        EntityClassMetaData entityClassMetaDataClient; // = new EntityClassMetaDataImpl();
-//        EntityClassMetaData entityClassMetaDataClient = new EntityClassMetaDataClientImpl(Client.class);
 //        EntitySQLMetaData entitySQLMetaDataClient = null; //= new EntitySQLMetaDataImpl();
 
         EntityClassMetaData entityClassMetaDataClient = new EntityClassMetaDataImpl(Client.class);
-        EntitySQLMetaData entitySQLMetaDataClient = null; //= new EntitySQLMetaDataImpl();
+        EntitySQLMetaData entitySQLMetaDataClient = new EntitySQLMetaDataImpl(entityClassMetaDataClient);
         var dataTemplateClient = new DataTemplateJdbc<Client>(dbExecutor, entitySQLMetaDataClient); //реализация DataTemplate, универсальная
 
 // Код дальше должен остаться
@@ -64,8 +63,9 @@ public class HomeWork {
 // Сделайте тоже самое с классом Manager (для него надо сделать свою таблицу)
 
 //        EntityClassMetaData entityClassMetaDataManager // = new EntityClassMetaDataImpl();
+//        EntitySQLMetaData entitySQLMetaDataManager = null; //= new EntitySQLMetaDataImpl();
         EntityClassMetaData entityClassMetaDataManager = new EntityClassMetaDataImpl(Manager.class);
-        EntitySQLMetaData entitySQLMetaDataManager = null; //= new EntitySQLMetaDataImpl();
+        EntitySQLMetaData entitySQLMetaDataManager = new EntitySQLMetaDataImpl(entityClassMetaDataManager);
         var dataTemplateManager = new DataTemplateJdbc<Manager>(dbExecutor, entitySQLMetaDataManager);
 
         var dbServiceManager = new DbServiceManagerImpl(transactionRunner, dataTemplateManager);
