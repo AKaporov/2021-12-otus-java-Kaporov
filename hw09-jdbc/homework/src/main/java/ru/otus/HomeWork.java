@@ -17,6 +17,7 @@ import ru.otus.jdbc.mapper.EntitySQLMetaData;
 import ru.otus.jdbc.mapper.EntitySQLMetaDataImpl;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeWork {
@@ -27,16 +28,6 @@ public class HomeWork {
     private static final Logger log = LoggerFactory.getLogger(HomeWork.class);
 
     public static void main(String[] args) {
-//        EntityClassMetaData entityClassMetaDataC = new EntityClassMetaDataImpl(Client.class);
-//        System.out.println("entityClassMetaDataC.getName() = " + entityClassMetaDataC.getName());
-//        System.out.println("entityClassMetaDataC.getConstructor() = " + entityClassMetaDataC.getConstructor());
-//        System.out.println("entityClassMetaDataC.getIdField() = " + entityClassMetaDataC.getIdField());
-//        System.out.println("--- entityClassMetaDataC.getAllFields():");
-//        entityClassMetaDataC.getAllFields().forEach(System.out::println);
-//        System.out.println("--- entityClassMetaDataC.getFieldsWithoutId():");
-//        entityClassMetaDataC.getFieldsWithoutId().forEach(System.out::println);
-
-
 // Общая часть
         var dataSource = new DriverManagerDataSource(URL, USER, PASSWORD);
         flywayMigrations(dataSource);
@@ -44,9 +35,6 @@ public class HomeWork {
         var dbExecutor = new DbExecutorImpl();
 
 // Работа с клиентом
-//        EntityClassMetaData entityClassMetaDataClient; // = new EntityClassMetaDataImpl();
-//        EntitySQLMetaData entitySQLMetaDataClient = null; //= new EntitySQLMetaDataImpl();
-
         EntityClassMetaData entityClassMetaDataClient = new EntityClassMetaDataImpl(Client.class);
         EntitySQLMetaData entitySQLMetaDataClient = new EntitySQLMetaDataImpl(entityClassMetaDataClient);
         var dataTemplateClient = new DataTemplateJdbc<Client>(dbExecutor, entitySQLMetaDataClient); //реализация DataTemplate, универсальная
@@ -62,8 +50,6 @@ public class HomeWork {
 
 // Сделайте тоже самое с классом Manager (для него надо сделать свою таблицу)
 
-//        EntityClassMetaData entityClassMetaDataManager // = new EntityClassMetaDataImpl();
-//        EntitySQLMetaData entitySQLMetaDataManager = null; //= new EntitySQLMetaDataImpl();
         EntityClassMetaData entityClassMetaDataManager = new EntityClassMetaDataImpl(Manager.class);
         EntitySQLMetaData entitySQLMetaDataManager = new EntitySQLMetaDataImpl(entityClassMetaDataManager);
         var dataTemplateManager = new DataTemplateJdbc<Manager>(dbExecutor, entitySQLMetaDataManager);

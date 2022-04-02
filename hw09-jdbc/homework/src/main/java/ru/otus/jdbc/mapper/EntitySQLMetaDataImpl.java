@@ -31,7 +31,6 @@ public class EntitySQLMetaDataImpl implements EntitySQLMetaData {
         List<Field> fieldsWithoutId = entity.getFieldsWithoutId();
         var fieldList = getFieldListFromEntityToInsert(fieldsWithoutId);
 
-        //String s = fieldList.toString();
         sql.append(fieldList).append(") values (");
 
         var valueList = getValueListFromEntity(fieldsWithoutId);
@@ -47,10 +46,12 @@ public class EntitySQLMetaDataImpl implements EntitySQLMetaData {
                 .append(entity.getName())
                 .append(" set ");
 
-        List<Field> fieldsWithoutId = entity.getFieldsWithoutId();
-        String setFields = getFieldListFromEntityToUpdate(fieldsWithoutId);
+        String setFields = getFieldListFromEntityToUpdate(entity.getFieldsWithoutId());
 
-        sql.append(setFields).append(" where id = ?");
+        sql.append(setFields)
+                .append(" where ")
+                .append(entity.getIdField())
+                .append(" = ?");
 
         return sql.toString();
     }
@@ -68,23 +69,6 @@ public class EntitySQLMetaDataImpl implements EntitySQLMetaData {
     }
 
     private String getFieldListFromEntityToInsert(List<Field> fieldsWithoutId) {
-//        var fieldList = new StringBuilder();
-//        fieldsWithoutId.forEach(f -> {
-//            if (fieldList.isEmpty()) {
-//                fieldList.append(f.getName());
-//            } else {
-//                fieldList.append(", ").append(f.getName());
-//            }
-//        });
-//
-//        return fieldList;
-
-
-//        var joiner = new StringJoiner(", ");
-//        fieldsWithoutId.forEach(f -> joiner.add(f.getName()));
-//        return joiner.toString();
-
-//        String.join(", ", fieldsWithoutId.toString());
         return fieldsWithoutId.stream()
                 .map(Field::getName)
                 .collect(Collectors.joining(", "));
