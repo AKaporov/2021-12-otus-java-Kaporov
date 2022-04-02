@@ -11,5 +11,7 @@ include 'hw08-json:demo'
 include 'hw08-json:homework'
 include 'hw09-jdbc-v2:demo'
 include 'hw09-jdbc-v2:homework'
+include 'hw10-hibernate:class-demo'
+include 'hw10-hibernate:homework-template'
 
 include 'hw11-cache'
