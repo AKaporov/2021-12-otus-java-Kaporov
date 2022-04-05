@@ -1,6 +1,7 @@
 package ru.otus.core.repository;
 
 import junit.framework.AssertionFailedError;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.otus.base.AbstractHibernateTest;
