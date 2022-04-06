@@ -29,15 +29,6 @@ public class MyCache<K, V> implements HwCache<K, V> {
     }
 
     @Override
-    public List<V> getAll() {
-        List<V> resultList = new ArrayList<>(cache.size());
-
-        cache.values().forEach(resultList::add);
-
-        return resultList;
-    }
-
-    @Override
     public void addListener(HwListener<K, V> listener) {
         listeners.add(listener);
     }
