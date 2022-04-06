@@ -1,22 +1,27 @@
 package ru.otus.cachehw;
 
 
+import java.util.Map;
+import java.util.WeakHashMap;
+
 public class MyCache<K, V> implements HwCache<K, V> {
 //Надо реализовать эти методы
 
+    Map<K, V> cache = new WeakHashMap<>();
+
     @Override
     public void put(K key, V value) {
-
+        cache.put(key, value);
     }
 
     @Override
     public void remove(K key) {
-
+        cache.remove(key);
     }
 
     @Override
     public V get(K key) {
-        return null;
+        return cache.get(key);
     }
 
     @Override
