@@ -1,13 +1,14 @@
-package ru.otus.service;
+package ru.otus.cachehw.crm.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.cachehw.HwCache;
 import ru.otus.cachehw.MyCache;
-import ru.otus.core.repository.DataTemplate;
-import ru.otus.core.sessionmanager.TransactionRunner;
-import ru.otus.model.Client;
+import ru.otus.cachehw.core.repository.DataTemplate;
+import ru.otus.cachehw.core.sessionmanager.TransactionRunner;
+import ru.otus.cachehw.crm.model.Client;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,18 +17,22 @@ public class DbServiceClientImpl implements DBServiceClient {
 
     private final DataTemplate<Client> dataTemplate;
     private final TransactionRunner transactionRunner;
-    private final HwCache<String, Client> cache = new MyCache<>();
+    private final boolean isUseCache;
+    private final HwCache<String, Client> myCache = new MyCache<>();
 
-    public DbServiceClientImpl(TransactionRunner transactionRunner, DataTemplate<Client> dataTemplate) {
+    public DbServiceClientImpl(TransactionRunner transactionRunner, DataTemplate<Client> dataTemplate, boolean isUseCache) {
         this.transactionRunner = transactionRunner;
         this.dataTemplate = dataTemplate;
+        this.isUseCache = isUseCache;
     }
 
     @Override
     public Client saveClient(Client client) {
         Client savedClient = putClientInDB(client);
 
-        putClientInCache(savedClient);
+        if (isUseCache) {
+            putClientInCache(savedClient);
+        }
 
         return savedClient;
     }
@@ -48,13 +53,13 @@ public class DbServiceClientImpl implements DBServiceClient {
 
     private void putClientInCache(Client client) {
         if (client != null) {
-            cache.put(getKey(client.getId()), client);
+            myCache.put(getKey(client.getId()), client);
         }
     }
 
     @Override
     public Optional<Client> getClient(long id) {
-        Optional<Client> clientFoundInCache = getClientFromCache(id);
+        Optional<Client> clientFoundInCache = isUseCache ? getClientFromCache(id) : Optional.empty();
 
         return clientFoundInCache.isPresent() ? clientFoundInCache : getClientFromDB(id);
     }
@@ -68,7 +73,7 @@ public class DbServiceClientImpl implements DBServiceClient {
     }
 
     private Optional<Client> getClientFromCache(long id) {
-        Client clientFoundInCache = cache.get(getKey(id));
+        Client clientFoundInCache = myCache.get(getKey(id));
 
         return clientFoundInCache == null ? null : Optional.of(clientFoundInCache);
     }
@@ -79,17 +84,13 @@ public class DbServiceClientImpl implements DBServiceClient {
 
     @Override
     public List<Client> findAll() {
-        List<Client> resultList = getAllClientsFromCache();
+        List<Client> resultList = isUseCache ? getAllClientsFromCache() : new ArrayList<>();
 
-        if (resultList.isEmpty()) {
-            return getAllClientsFromDB();
-        }
-
-        return resultList;
+        return resultList.isEmpty() ? getAllClientsFromDB() : resultList;
     }
 
     private List<Client> getAllClientsFromCache() {
-        return cache.getAll();
+        return myCache.getAll();
     }
 
     private List<Client> getAllClientsFromDB() {

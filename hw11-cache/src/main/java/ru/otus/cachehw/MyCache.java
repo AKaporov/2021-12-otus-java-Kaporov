@@ -15,7 +15,7 @@ public class MyCache<K, V> implements HwCache<K, V> {
 
     @Override
     public void put(K key, V value) {
-        cache.putIfAbsent(key, value);
+        cache.put(key, value);
     }
 
     @Override

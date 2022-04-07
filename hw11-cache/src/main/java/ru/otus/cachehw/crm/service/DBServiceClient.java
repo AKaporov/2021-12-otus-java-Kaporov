@@ -1,6 +1,6 @@
-package ru.otus.service;
+package ru.otus.cachehw.crm.service;
 
-import ru.otus.model.Client;
+import ru.otus.cachehw.crm.model.Client;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package ru.otus.model;
+package ru.otus.cachehw.crm.model;
 
 public class Client {
     private Long id;
