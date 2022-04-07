@@ -4,11 +4,7 @@ package ru.otus.references;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.ref.PhantomReference;
-import java.lang.ref.Reference;
-import java.lang.ref.ReferenceQueue;
-import java.lang.ref.SoftReference;
-import java.lang.ref.WeakReference;
+import java.lang.ref.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -21,7 +17,7 @@ public class ReferenceDemo {
     private static final Logger logger = LoggerFactory.getLogger(ReferenceDemo.class);
 
     public static void main(String[] args) throws InterruptedException {
-         strong();
+        strong();
         // weak();
         // soft();
         // finalizeDemo();

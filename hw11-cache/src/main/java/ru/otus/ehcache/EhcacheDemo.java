@@ -3,7 +3,6 @@ package ru.otus.ehcache;
 
 import org.ehcache.Cache;
 import org.ehcache.CacheManager;
-
 import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.CacheEventListenerConfigurationBuilder;
 import org.ehcache.config.builders.CacheManagerBuilder;
@@ -11,7 +10,6 @@ import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.event.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 import java.util.stream.IntStream;
 
@@ -67,7 +65,7 @@ public class EhcacheDemo {
 
         this.cache = cacheManager.createCache("Demo-Cache",
                 CacheConfigurationBuilder.newCacheConfigurationBuilder(Integer.class, Long.class,
-                        ResourcePoolsBuilder.heap(5))
+                                ResourcePoolsBuilder.heap(5))
                         .withService(cacheEventListenerConfiguration)
                         .build());
 
