@@ -27,16 +27,16 @@ public class DbServiceClientImpl implements DBServiceClient {
 
     @Override
     public Client saveClient(Client client) {
-        Client savedClient = putClientInDB(client);
+        Client savedClient = putInDB(client);
 
         if (isUseCache) {
-            putClientInCache(savedClient);
+            putInCache(savedClient);
         }
 
         return savedClient;
     }
 
-    private Client putClientInDB(Client client) {
+    private Client putInDB(Client client) {
         return transactionRunner.doInTransaction(connection -> {
             if (client.getId() == null) {
                 var clientId = dataTemplate.insert(connection, client);
@@ -50,7 +50,7 @@ public class DbServiceClientImpl implements DBServiceClient {
         });
     }
 
-    private void putClientInCache(Client client) {
+    private void putInCache(Client client) {
         if (client != null) {
             myCache.put(getKey(client.getId()), client);
         }
@@ -58,20 +58,20 @@ public class DbServiceClientImpl implements DBServiceClient {
 
     @Override
     public Optional<Client> getClient(long id) {
-        Optional<Client> clientFromCache = isUseCache ? getClientFromCache(id) : Optional.empty();
+        Optional<Client> fromCache = isUseCache ? getFromCache(id) : Optional.empty();
 
-        if (clientFromCache.isPresent()) {
-            return clientFromCache;
+        if (fromCache.isPresent()) {
+            return fromCache;
         }
 
-        Optional<Client> clientFromDB = getClientFromDB(id);
+        Optional<Client> fromDB = getFromDB(id);
 
-        clientFromDB.ifPresent(this::putClientInCache);
+        fromDB.ifPresent(this::putInCache);
 
-        return clientFromDB;
+        return fromDB;
     }
 
-    private Optional<Client> getClientFromDB(long id) {
+    private Optional<Client> getFromDB(long id) {
         return transactionRunner.doInTransaction(connection -> {
             var clientOptional = dataTemplate.findById(connection, id);
             log.info("client: {}", clientOptional);
@@ -79,7 +79,7 @@ public class DbServiceClientImpl implements DBServiceClient {
         });
     }
 
-    private Optional<Client> getClientFromCache(long id) {
+    private Optional<Client> getFromCache(long id) {
         return Optional.ofNullable(myCache.get(getKey(id)));
     }
 
@@ -89,10 +89,6 @@ public class DbServiceClientImpl implements DBServiceClient {
 
     @Override
     public List<Client> findAll() {
-        return getAllClientsFromDB();
-    }
-
-    private List<Client> getAllClientsFromDB() {
         return transactionRunner.doInTransaction(connection -> {
             var clientList = dataTemplate.findAll(connection);
             log.info("clientList:{}", clientList);
