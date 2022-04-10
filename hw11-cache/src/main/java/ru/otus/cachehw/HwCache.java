@@ -1,8 +1,5 @@
 package ru.otus.cachehw;
 
-
-import java.util.List;
-
 public interface HwCache<K, V> {
 
     void put(K key, V value);
