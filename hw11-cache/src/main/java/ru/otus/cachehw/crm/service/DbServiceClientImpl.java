@@ -3,7 +3,6 @@ package ru.otus.cachehw.crm.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.cachehw.HwCache;
-import ru.otus.cachehw.MyCache;
 import ru.otus.cachehw.core.repository.DataTemplate;
 import ru.otus.cachehw.core.sessionmanager.TransactionRunner;
 import ru.otus.cachehw.crm.model.Client;
@@ -17,12 +16,12 @@ public class DbServiceClientImpl implements DBServiceClient {
     private final DataTemplate<Client> dataTemplate;
     private final TransactionRunner transactionRunner;
     private final boolean isUseCache;
+    private final HwCache<String, Client> myCache;
 
-    private final HwCache<String, Client> myCache = new MyCache<>();
-
-    public DbServiceClientImpl(TransactionRunner transactionRunner, DataTemplate<Client> dataTemplate, boolean isUseCache) {
+    public DbServiceClientImpl(TransactionRunner transactionRunner, DataTemplate<Client> dataTemplate, HwCache<String, Client> myCache, boolean isUseCache) {
         this.transactionRunner = transactionRunner;
         this.dataTemplate = dataTemplate;
+        this.myCache = myCache;
         this.isUseCache = isUseCache;
     }
 
