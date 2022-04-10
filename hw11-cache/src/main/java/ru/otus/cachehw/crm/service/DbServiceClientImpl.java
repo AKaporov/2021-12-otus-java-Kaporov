@@ -17,6 +17,7 @@ public class DbServiceClientImpl implements DBServiceClient {
     private final DataTemplate<Client> dataTemplate;
     private final TransactionRunner transactionRunner;
     private final boolean isUseCache;
+
     private final HwCache<String, Client> myCache = new MyCache<>();
 
     public DbServiceClientImpl(TransactionRunner transactionRunner, DataTemplate<Client> dataTemplate, boolean isUseCache) {
@@ -58,10 +59,12 @@ public class DbServiceClientImpl implements DBServiceClient {
 
     @Override
     public Optional<Client> getClient(long id) {
-        Optional<Client> fromCache = isUseCache ? getFromCache(id) : Optional.empty();
+        if (isUseCache) {
+            Optional<Client> fromCache = getFromCache(id);
 
-        if (fromCache.isPresent()) {
-            return fromCache;
+            if (fromCache.isPresent()) {
+                return fromCache;
+            }
         }
 
         Optional<Client> fromDB = getFromDB(id);
