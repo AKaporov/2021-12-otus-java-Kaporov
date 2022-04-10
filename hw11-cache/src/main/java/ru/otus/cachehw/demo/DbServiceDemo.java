@@ -3,6 +3,8 @@ package ru.otus.cachehw.demo;
 import org.flywaydb.core.Flyway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.otus.cachehw.HwCache;
+import ru.otus.cachehw.MyCache;
 import ru.otus.cachehw.core.repository.executor.DbExecutorImpl;
 import ru.otus.cachehw.core.sessionmanager.TransactionRunnerJdbc;
 import ru.otus.cachehw.crm.datasource.DriverManagerDataSource;
@@ -30,9 +32,10 @@ public class DbServiceDemo {
         var clientTemplate = new ClientDataTemplateJdbc(dbExecutor); //реализация DataTemplate, заточена на Client
 
 ///
+        HwCache<String, Client> myCache = new MyCache<>();
         boolean withCache = true;
         Instant start = Instant.now();
-        var dbServiceClient = new DbServiceClientImpl(transactionRunner, clientTemplate, withCache);
+        var dbServiceClient = new DbServiceClientImpl(transactionRunner, clientTemplate, myCache, withCache);
         dbServiceClient.saveClient(new Client("dbServiceFirst"));
 
         var clientSecond = dbServiceClient.saveClient(new Client("dbServiceSecond"));
