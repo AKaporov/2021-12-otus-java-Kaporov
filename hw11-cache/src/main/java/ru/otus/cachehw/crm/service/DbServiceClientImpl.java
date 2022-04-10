@@ -8,7 +8,6 @@ import ru.otus.cachehw.core.repository.DataTemplate;
 import ru.otus.cachehw.core.sessionmanager.TransactionRunner;
 import ru.otus.cachehw.crm.model.Client;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,9 +58,17 @@ public class DbServiceClientImpl implements DBServiceClient {
 
     @Override
     public Optional<Client> getClient(long id) {
-        Optional<Client> clientFoundInCache = isUseCache ? getClientFromCache(id) : Optional.empty();
+        Optional<Client> clientFromCache = isUseCache ? getClientFromCache(id) : Optional.empty();
 
-        return clientFoundInCache.isPresent() ? clientFoundInCache : getClientFromDB(id);
+        if (clientFromCache.isPresent()) {
+            return clientFromCache;
+        }
+
+        Optional<Client> clientFromDB = getClientFromDB(id);
+
+        clientFromDB.ifPresent(this::putClientInCache);
+
+        return clientFromDB;
     }
 
     private Optional<Client> getClientFromDB(long id) {
@@ -73,9 +80,7 @@ public class DbServiceClientImpl implements DBServiceClient {
     }
 
     private Optional<Client> getClientFromCache(long id) {
-        Client clientFoundInCache = myCache.get(getKey(id));
-
-        return clientFoundInCache == null ? null : Optional.of(clientFoundInCache);
+        return Optional.ofNullable(myCache.get(getKey(id)));
     }
 
     private String getKey(long id) {
@@ -84,13 +89,7 @@ public class DbServiceClientImpl implements DBServiceClient {
 
     @Override
     public List<Client> findAll() {
-        List<Client> resultList = isUseCache ? getAllClientsFromCache() : new ArrayList<>();
-
-        return resultList.isEmpty() ? getAllClientsFromDB() : resultList;
-    }
-
-    private List<Client> getAllClientsFromCache() {
-        return myCache.getAll();
+        return getAllClientsFromDB();
     }
 
     private List<Client> getAllClientsFromDB() {
