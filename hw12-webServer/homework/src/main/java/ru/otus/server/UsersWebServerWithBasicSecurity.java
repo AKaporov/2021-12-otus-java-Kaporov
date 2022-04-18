@@ -9,7 +9,7 @@ import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.util.security.Constraint;
-import ru.otus.dao.UserDao;
+import ru.otus.services.DBServiceClient;
 import ru.otus.services.TemplateProcessor;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UsersWebServerWithBasicSecurity extends UsersWebServerSimple {
-    private static final String ROLE_NAME_USER = "user";
+    private static final String ROLE_NAME_CLIENT = "client";
     private static final String ROLE_NAME_ADMIN = "admin";
     private static final String CONSTRAINT_NAME = "auth";
 
@@ -25,10 +25,10 @@ public class UsersWebServerWithBasicSecurity extends UsersWebServerSimple {
 
     public UsersWebServerWithBasicSecurity(int port,
                                            LoginService loginService,
-                                           UserDao userDao,
+                                           DBServiceClient serviceClient,
                                            Gson gson,
                                            TemplateProcessor templateProcessor) {
-        super(port, userDao, gson, templateProcessor);
+        super(port, serviceClient, gson, templateProcessor);
         this.loginService = loginService;
     }
 
@@ -36,7 +36,7 @@ public class UsersWebServerWithBasicSecurity extends UsersWebServerSimple {
         Constraint constraint = new Constraint();
         constraint.setName(CONSTRAINT_NAME);
         constraint.setAuthenticate(true);
-        constraint.setRoles(new String[]{ROLE_NAME_USER, ROLE_NAME_ADMIN});
+        constraint.setRoles(new String[]{ROLE_NAME_CLIENT, ROLE_NAME_ADMIN});
 
         List<ConstraintMapping> constraintMappings = new ArrayList<>();
         Arrays.stream(paths).forEachOrdered(path -> {

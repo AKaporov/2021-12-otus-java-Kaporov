@@ -12,6 +12,9 @@ import ru.otus.crm.model.Client;
 import ru.otus.crm.model.Phone;
 import ru.otus.crm.service.DbServiceClientImpl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DbServiceDemo {
 
     private static final Logger log = LoggerFactory.getLogger(DbServiceDemo.class);
@@ -35,6 +38,10 @@ public class DbServiceDemo {
 ///
         var dbServiceClient = new DbServiceClientImpl(transactionManager, clientTemplate);
         dbServiceClient.saveClient(new Client("dbServiceFirst"));
+        List<Phone> phones = new ArrayList<>(2);
+        phones.add(new Phone("phone_1"));
+        phones.add(new Phone("phone_2"));
+        dbServiceClient.saveClient(new Client("test", new Address("steert_test"), phones));
 
         var clientSecond = dbServiceClient.saveClient(new Client("dbServiceSecond"));
         var clientSecondSelected = dbServiceClient.getClient(clientSecond.getId())

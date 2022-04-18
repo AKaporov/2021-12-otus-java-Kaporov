@@ -67,6 +67,14 @@ public class Client implements Cloneable {
         this.name = name;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
