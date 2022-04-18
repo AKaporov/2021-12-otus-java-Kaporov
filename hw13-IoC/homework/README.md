@@ -24,3 +24,4 @@
 5. Не называйте свой проект ДЗ "homework-template", это имя заготовки).
 
 * [Spring Framework 5.3.19](https://spring.io/projects/spring-framework)
+* [A Guide to the Reflections Library](https://www.baeldung.com/reflections-library) - baeldung

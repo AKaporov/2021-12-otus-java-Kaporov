@@ -1,9 +1,16 @@
 package ru.otus.appcontainer;
 
+import ru.otus.appcontainer.api.AppComponent;
 import ru.otus.appcontainer.api.AppComponentsContainer;
 import ru.otus.appcontainer.api.AppComponentsContainerConfig;
+import ru.otus.dto.AppComponentDto;
 
-import java.util.*;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AppComponentsContainerImpl implements AppComponentsContainer {
 
@@ -17,6 +24,30 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
     private void processConfig(Class<?> configClass) {
         checkConfigClass(configClass);
         // You code here...
+
+
+        List<AppComponentDto> list = new ArrayList<>();
+        Method[] declaredMethods = configClass.getDeclaredMethods();
+        for (Method method : declaredMethods) {
+            AppComponent annotationAppComponent = method.getAnnotation(AppComponent.class);
+            if (annotationAppComponent != null) {
+                int order = annotationAppComponent.order();
+                String name = annotationAppComponent.name();
+
+                Parameter[] parameters = method.getParameters();
+                Object[] args = new Object[parameters.length];
+                for (int i = 0; i < parameters.length; i++) {
+                    args[i] = parameters[i].getParameterizedType().getTypeName();
+                }
+
+                AppComponentDto dto = new AppComponentDto(order, name, args);
+
+                list.add(dto);
+            }
+        }
+
+
+        System.out.println("list = " + list);
     }
 
     private void checkConfigClass(Class<?> configClass) {
