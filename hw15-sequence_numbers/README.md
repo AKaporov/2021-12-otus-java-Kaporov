@@ -13,3 +13,4 @@
 Всегда должен начинать Поток 1.
 
 * [Object Pool Design Pattern](https://sourcemaking.com/design_patterns/object_pool) - Creational patterns.
+* [Spurious wakeup](https://en.wikipedia.org/wiki/Spurious_wakeup) - Ложное пробуждение потока.
