@@ -5,9 +5,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import ru.otus.appcontainer.AppComponentsContainerImpl;
-import ru.otus.appcontainer.api.AppComponentsContainer;
 import ru.otus.config.AppConfig;
-import ru.otus.services.*;
+import ru.otus.services.EquationPreparer;
+import ru.otus.services.IOService;
+import ru.otus.services.PlayerService;
 
 import java.io.PrintStream;
 import java.lang.reflect.Modifier;
@@ -59,7 +60,7 @@ class AppTest {
                 .peek(f -> f.setAccessible(true))
                 .collect(Collectors.toList());
 
-        for (var field: fields){
+        for (var field : fields) {
             var fieldValue = field.get(component);
             assertThat(fieldValue).isNotNull().isInstanceOfAny(IOService.class, PlayerService.class,
                     EquationPreparer.class, PrintStream.class, Scanner.class);
