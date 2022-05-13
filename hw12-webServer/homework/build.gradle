@@ -12,6 +12,8 @@ dependencies {
     implementation("org.postgresql:postgresql")
     implementation("com.google.code.gson:gson:${Versions.gson}")
 
+    implementation("org.apache.commons:commons-lang3:${Versions.commonsLang3}")
+
     implementation("org.eclipse.jetty:jetty-servlet:${Versions.jetty}")
     implementation("org.eclipse.jetty:jetty-server:${Versions.jetty}")
     implementation("org.eclipse.jetty:jetty-webapp:${Versions.jetty}")
