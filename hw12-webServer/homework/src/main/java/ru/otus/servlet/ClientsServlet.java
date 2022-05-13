@@ -18,14 +18,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ClientsServlet extends HttpServlet {
 
     private static final String CLIENTS_PAGE_TEMPLATE = "clients.html";
     private static final String TEMPLATE_ATTR_CLIENT_DTO = "clientDtoList";
-    public static final String REQUEST_PARAMETR_CLIENT_NAME = "name";
-    public static final String REQUEST_PARAMETR_ADDRESS = "address";
-    public static final String REQUEST_PARAMETR_PHONES = "phones";
+    public static final String REQUEST_PARAMETER_CLIENT_NAME = "clientNameTextBox";
+    public static final String REQUEST_PARAMETER_ADDRESS = "clientAddressTextBox";
+    public static final String REQUEST_PARAMETER_PHONES = "clientPhoneTextBox";
 
     private final DBServiceClient serviceClient;
     private final TemplateProcessor templateProcessor;
@@ -89,22 +90,23 @@ public class ClientsServlet extends HttpServlet {
 
         List<Phone> phones = getPhones(request);
 
-        var client = new Client(clientName, address, phones);
-        return client;
+        return new Client(clientName, address, phones);
     }
 
     private String getClientName(HttpServletRequest request) {
-        return request.getParameter(REQUEST_PARAMETR_CLIENT_NAME);
+        return request.getParameter(REQUEST_PARAMETER_CLIENT_NAME);
     }
 
     private Address getAddress(HttpServletRequest request) {
-        return new Address(request.getParameter(REQUEST_PARAMETR_ADDRESS));
+        return new Address(request.getParameter(REQUEST_PARAMETER_ADDRESS));
     }
 
     private List<Phone> getPhones(HttpServletRequest request) {
-        return Arrays.stream(request.getParameterMap().get(REQUEST_PARAMETR_PHONES))
+//        Stream.of(request.getParameter(REQUEST_PARAMETER_PHONES).split("; ")).map(Phone::new).collect(Collectors.toList());
+
+        return Arrays.stream(request.getParameterMap().get(REQUEST_PARAMETER_PHONES))
                 .filter(StringUtils::isNotBlank)
-                .map(n -> new Phone(n))
+                .map(Phone::new)
                 .collect(Collectors.toList());
     }
 

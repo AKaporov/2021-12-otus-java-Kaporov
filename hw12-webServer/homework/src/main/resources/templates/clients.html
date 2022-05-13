@@ -31,19 +31,14 @@
         </tr>
     </thead>
     <tbody>
-<!--    <tr>-->
-<!--        <td scope="row">${client.id}</td>-->
-<!--        <td>${client.name}</td>-->
-<!--        <td>${client.address.street}</td>-->
-<!--        <td><#list client.phones as phone>${phone.number}<#sep>, </#sep></#list></td>-->
-<!--    </tr>-->
-
-        <tr th:each = "client : ${clientDtoList}">
+    <#list clientDtoList as client>
+        <tr>
             <td scope="row">${client.id}</td>
             <td>${client.name}</td>
             <td>${client.addressStreet}</td>
             <td>${client.phoneNumber}</td>
         </tr>
+    </#list>
     </tbody>
 </table>
 </body>
