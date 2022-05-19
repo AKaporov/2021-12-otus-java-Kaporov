@@ -36,6 +36,15 @@ public class SequenceNumbers {
         }
     }
 
+//    private static void action(int i) {
+//        try {
+//            Thread.sleep(ThreadLocalRandom.current().nextInt(10, 100));
+//        } catch (InterruptedException e) {
+//            Thread.currentThread().interrupt();
+//        }
+//        logger.info("ARRAY[" + i + "] = " + ARRAY[i]);
+//    }
+
     private int getNextItem(int i) {
         if (i == LIMIT - 1) {
             toUp = false;
@@ -64,8 +73,12 @@ public class SequenceNumbers {
     public static void main(String[] args) {
         SequenceNumbers sn = new SequenceNumbers();
 
-        new Thread(() -> sn.action(0)).start();
-        new Thread(() -> sn.action(0)).start();
+        var t1 = new Thread(() -> sn.action(0));
+        var t2 = new Thread(() -> sn.action(0));
+
+        t1.start();
+        sleep();
+        t2.start();
     }
 
     private static void sleep() {
