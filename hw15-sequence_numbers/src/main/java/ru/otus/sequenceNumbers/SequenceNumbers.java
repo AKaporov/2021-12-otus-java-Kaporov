@@ -6,11 +6,14 @@ import org.slf4j.LoggerFactory;
 import java.util.stream.IntStream;
 
 public class SequenceNumbers {
+    private static final String THREAD_ONE = "thread-1";
+    private static final String THREAD_TWO = "thread-2";
     private static final Logger logger = LoggerFactory.getLogger(SequenceNumbers.class);
+
     private static final int LIMIT = 10;
     private static final int[] ARRAY = IntStream.rangeClosed(1, LIMIT).toArray(); // From 1 to 10 //{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-    private String lastThreadName = "";
+    private String lastThreadName = THREAD_TWO;
     private boolean toUp = true;
 
     private synchronized void action(int i) {
@@ -35,15 +38,6 @@ public class SequenceNumbers {
             }
         }
     }
-
-//    private static void action(int i) {
-//        try {
-//            Thread.sleep(ThreadLocalRandom.current().nextInt(10, 100));
-//        } catch (InterruptedException e) {
-//            Thread.currentThread().interrupt();
-//        }
-//        logger.info("ARRAY[" + i + "] = " + ARRAY[i]);
-//    }
 
     private int getNextItem(int i) {
         if (i == LIMIT - 1) {
@@ -73,12 +67,9 @@ public class SequenceNumbers {
     public static void main(String[] args) {
         SequenceNumbers sn = new SequenceNumbers();
 
-        var t1 = new Thread(() -> sn.action(0));
-        var t2 = new Thread(() -> sn.action(0));
 
-        t1.start();
-        sleep();
-        t2.start();
+        new Thread(() -> sn.action(0), THREAD_ONE).start();
+        new Thread(() -> sn.action(0), THREAD_TWO).start();
     }
 
     private static void sleep() {
