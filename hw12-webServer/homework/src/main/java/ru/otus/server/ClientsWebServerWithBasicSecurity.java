@@ -16,18 +16,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class UsersWebServerWithBasicSecurity extends UsersWebServerSimple {
+public class ClientsWebServerWithBasicSecurity extends ClientsWebServerSimple {
     private static final String ROLE_NAME_CLIENT = "client";
     private static final String ROLE_NAME_ADMIN = "admin";
     private static final String CONSTRAINT_NAME = "auth";
 
     private final LoginService loginService;
 
-    public UsersWebServerWithBasicSecurity(int port,
-                                           LoginService loginService,
-                                           DBServiceClient serviceClient,
-                                           Gson gson,
-                                           TemplateProcessor templateProcessor) {
+    public ClientsWebServerWithBasicSecurity(int port,
+                                             LoginService loginService,
+                                             DBServiceClient serviceClient,
+                                             Gson gson,
+                                             TemplateProcessor templateProcessor) {
         super(port, serviceClient, gson, templateProcessor);
         this.loginService = loginService;
     }

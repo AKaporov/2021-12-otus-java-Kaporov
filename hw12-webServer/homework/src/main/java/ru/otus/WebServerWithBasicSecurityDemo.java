@@ -10,16 +10,13 @@ import org.slf4j.LoggerFactory;
 import ru.otus.core.repository.DataTemplateHibernate;
 import ru.otus.core.repository.HibernateUtils;
 import ru.otus.core.sessionmanager.TransactionManagerHibernate;
-import ru.otus.dao.InMemoryUserDao;
-import ru.otus.dao.UserDao;
 import ru.otus.dbmigrations.MigrationsExecutorFlyway;
-import ru.otus.demo.DbServiceDemo;
 import ru.otus.helpers.FileSystemHelper;
 import ru.otus.model.Address;
 import ru.otus.model.Client;
 import ru.otus.model.Phone;
-import ru.otus.server.UsersWebServer;
-import ru.otus.server.UsersWebServerWithBasicSecurity;
+import ru.otus.server.ClientsWebServer;
+import ru.otus.server.ClientsWebServerWithBasicSecurity;
 import ru.otus.services.DBServiceClient;
 import ru.otus.services.DbServiceClientImpl;
 import ru.otus.services.TemplateProcessor;
@@ -72,11 +69,11 @@ public class WebServerWithBasicSecurityDemo {
         LoginService loginService = new HashLoginService(REALM_NAME, hashLoginServiceConfigPath);
         //LoginService loginService = new InMemoryLoginServiceImpl(userDao);
 
-        UsersWebServer usersWebServer = new UsersWebServerWithBasicSecurity(WEB_SERVER_PORT,
+        ClientsWebServer clientsWebServer = new ClientsWebServerWithBasicSecurity(WEB_SERVER_PORT,
                 loginService, serviceClient, gson, templateProcessor);
 
-        usersWebServer.start();
-        usersWebServer.join();
+        clientsWebServer.start();
+        clientsWebServer.join();
     }
 
     private static TransactionManagerHibernate getTransactionManagerHibernate(Configuration configuration) {

@@ -7,15 +7,13 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import ru.otus.dao.UserDao;
 import ru.otus.helpers.FileSystemHelper;
 import ru.otus.services.DBServiceClient;
 import ru.otus.services.TemplateProcessor;
-import ru.otus.servlet.UsersApiServlet;
 import ru.otus.servlet.ClientsServlet;
 
 
-public class UsersWebServerSimple implements UsersWebServer {
+public class ClientsWebServerSimple implements ClientsWebServer {
     private static final String START_PAGE_NAME = "index.html";
     private static final String COMMON_RESOURCES_DIR = "static";
 
@@ -32,7 +30,7 @@ public class UsersWebServerSimple implements UsersWebServer {
 //        server = new Server(port);
 //    }
 
-    public UsersWebServerSimple(int port, DBServiceClient serviceClient, Gson gson, TemplateProcessor templateProcessor) {
+    public ClientsWebServerSimple(int port, DBServiceClient serviceClient, Gson gson, TemplateProcessor templateProcessor) {
         this.serviceClient = serviceClient;
         this.gson = gson;
         this.templateProcessor = templateProcessor;
