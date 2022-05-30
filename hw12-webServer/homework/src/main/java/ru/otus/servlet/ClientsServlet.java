@@ -25,7 +25,7 @@ public class ClientsServlet extends HttpServlet {
     private static final String CLIENTS_PAGE_TEMPLATE = "clients.html";
     private static final String TEMPLATE_ATTR_CLIENT_DTO = "clientDtoList";
     public static final String REQUEST_PARAMETER_CLIENT_NAME = "clientNameTextBox";
-    public static final String REQUEST_PARAMETER_ADDRESS = "clientAddressTextBox";
+    public static final String REQUEST_PARAMETER_ADDRESS = "clientStreetNameTextBox";
     public static final String REQUEST_PARAMETER_PHONES = "clientPhoneTextBox";
 
     private final DBServiceClient serviceClient;
@@ -38,24 +38,16 @@ public class ClientsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        Map<String, Object> paramsMap = new HashMap<>();
-
         List<Client> allClients = serviceClient.findAll();
-//
+
         var toConvert = new ToClientDtoServiceImpl();
         List<ClientDto> clientDtoList = toConvert.convert(allClients);
-//        clientDtoList.forEach(clientDto -> paramsMap.put(getKey(clientDto), clientDto));
-//        paramsMap.put(TEMPLATE_ATTR_CLIENT_DTO, clientDtoList.get(1));
 
         Map<String, Object> paramsMap = Map.of(TEMPLATE_ATTR_CLIENT_DTO, clientDtoList);
 
         resp.setContentType("text/html");
         resp.getWriter().println(templateProcessor.getPage(CLIENTS_PAGE_TEMPLATE, paramsMap));
     }
-
-//    private String getKey(ClientDto clientDto) {
-//        return TEMPLATE_ATTR_CLIENT_DTO + ":" + clientDto.getId();
-//    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -31,11 +31,16 @@ import ru.otus.services.TemplateProcessorImpl;
     // Стартовая страница
     http://localhost:8080
 
+    // Страница с клиентами
+    http://localhost:8080/clients.html
+
     // Страница пользователей
     http://localhost:8080/users
 
     // REST сервис
     http://localhost:8080/api/user/3
+
+
 */
 public class WebServerWithBasicSecurityDemo {
     private static final int WEB_SERVER_PORT = 8080;
