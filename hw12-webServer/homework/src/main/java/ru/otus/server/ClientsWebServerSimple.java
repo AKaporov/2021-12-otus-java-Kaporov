@@ -17,18 +17,10 @@ public class ClientsWebServerSimple implements ClientsWebServer {
     private static final String START_PAGE_NAME = "index.html";
     private static final String COMMON_RESOURCES_DIR = "static";
 
-//    private final UserDao userDao;
     private final DBServiceClient serviceClient;
     private final Gson gson;
     protected final TemplateProcessor templateProcessor;
     private final Server server;
-
-//    public UsersWebServerSimple(int port, UserDao userDao, Gson gson, TemplateProcessor templateProcessor) {
-//        this.userDao = userDao;
-//        this.gson = gson;
-//        this.templateProcessor = templateProcessor;
-//        server = new Server(port);
-//    }
 
     public ClientsWebServerSimple(int port, DBServiceClient serviceClient, Gson gson, TemplateProcessor templateProcessor) {
         this.serviceClient = serviceClient;
@@ -62,15 +54,13 @@ public class ClientsWebServerSimple implements ClientsWebServer {
 
         HandlerList handlers = new HandlerList();
         handlers.addHandler(resourceHandler);
-//        handlers.addHandler(applySecurity(servletContextHandler, "/clients", "/api/user/*"));
         handlers.addHandler(applySecurity(servletContextHandler, "/clients"));
-
 
         server.setHandler(handlers);
         return server;
     }
 
-    protected Handler applySecurity(ServletContextHandler servletContextHandler, String ...paths) {
+    protected Handler applySecurity(ServletContextHandler servletContextHandler, String... paths) {
         return servletContextHandler;
     }
 
@@ -85,7 +75,6 @@ public class ClientsWebServerSimple implements ClientsWebServer {
     private ServletContextHandler createServletContextHandler() {
         ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servletContextHandler.addServlet(new ServletHolder(new ClientsServlet(templateProcessor, serviceClient)), "/clients");
-//        servletContextHandler.addServlet(new ServletHolder(new UsersApiServlet(userDao, gson)), "/api/user/*");
         return servletContextHandler;
     }
 }

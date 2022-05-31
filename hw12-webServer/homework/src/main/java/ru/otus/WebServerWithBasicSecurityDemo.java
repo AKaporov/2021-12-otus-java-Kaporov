@@ -23,21 +23,11 @@ import ru.otus.services.TemplateProcessor;
 import ru.otus.services.TemplateProcessorImpl;
 
 /*
-    Полезные для демо ссылки
-
     // Стартовая страница
     http://localhost:8080
 
     // Страница с клиентами
-    http://localhost:8080/clients.html
-
-    // Страница пользователей
-    http://localhost:8080/users
-
-    // REST сервис
-    http://localhost:8080/api/user/3
-
-
+    http://localhost:8080/clients
 */
 public class WebServerWithBasicSecurityDemo {
     private static final int WEB_SERVER_PORT = 8080;
@@ -59,15 +49,12 @@ public class WebServerWithBasicSecurityDemo {
         var clientTemplate = new DataTemplateHibernate<>(Client.class);
 
         DBServiceClient serviceClient = new DbServiceClientImpl(transactionManager, clientTemplate);
-//        UserDao userDao = new InMemoryUserDao();
-
 
         Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
         TemplateProcessor templateProcessor = new TemplateProcessorImpl(TEMPLATES_DIR);
 
         String hashLoginServiceConfigPath = FileSystemHelper.localFileNameOrResourceNameToFullPath(HASH_LOGIN_SERVICE_CONFIG_NAME);
         LoginService loginService = new HashLoginService(REALM_NAME, hashLoginServiceConfigPath);
-        //LoginService loginService = new InMemoryLoginServiceImpl(userDao);
 
         ClientsWebServer clientsWebServer = new ClientsWebServerWithBasicSecurity(WEB_SERVER_PORT,
                 loginService, serviceClient, gson, templateProcessor);
@@ -79,8 +66,7 @@ public class WebServerWithBasicSecurityDemo {
     private static TransactionManagerHibernate getTransactionManagerHibernate(Configuration configuration) {
         var sessionFactory = HibernateUtils.buildSessionFactory(configuration, Client.class, Address.class, Phone.class);
 
-        var transactionManager = new TransactionManagerHibernate(sessionFactory);
-        return transactionManager;
+        return new TransactionManagerHibernate(sessionFactory);
     }
 
     private static void flywayExecuteMigration(Configuration configuration) {
